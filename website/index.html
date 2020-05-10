@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,17 +26,41 @@ h1, h2, h3{
         <h1>Home Server</h1>
         <aside>For managing home stuff.</aside>
     </header>
-    <div id="data">
-        Loading...
+    <div id="mealplan">
+        <h1>Meal Plan</h1>
+        <div id="data">
+
+        </div>
     </div>
 
     <script>
 
 const outputDiv = document.getElementById('data');
 
-fetch('/api')
-    .then(response => response.text())
-    .then(data => outputDiv.innerHTML = data);
+const dayToHtml = (day) => {
+    // Example day:
+    // {
+    //     "day": "Monday",
+    //     "meals": [
+    //         {"time": "Lunch", "meal": "Gnocchi bake", "cook": "Peter"},
+    //         {"time": "Dinner", "meal": "Pad Thai", "cook": "Kim"},
+    //     ]
+    // }
+    let output = `<h2>${day.day}</h2>\n`;
+    output += day.meals.map(meal => 
+        `<b>${meal.time}:</b> ${meal.meal} (${meal.cook})<br />\n`
+    ).join("\n");
+    return output;
+}
+
+const displayData = (data) => {
+    outputDiv.innerHTML = data.map(dayToHtml).join('\n');
+}
+
+fetch('/api/mealplan')
+    .then(response => response.json())
+    .then(displayData);
+
 
     </script>
 </body>
