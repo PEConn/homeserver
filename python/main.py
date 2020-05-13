@@ -15,6 +15,10 @@ def root():
 def meal_plan():
     return json.dumps(model.getPlan())
 
+@app.route('/api/addmeal', method='POST')
+def add_meal():
+    print(request.body.read())
+
 @app.route('/')
 @app.route('/<filename>')
 def server_static(filename='index.html'):

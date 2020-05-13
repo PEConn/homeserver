@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Server</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<h1>Add meal</h1>
+
+
+<label for="name">Name:</label><br>
+<input type="text" id="name"><br>
+<label for="ingredients">Ingredients:</label><br>
+<textarea id="ingredients" rows="6" cols="50"></textarea><br><br>
+<input type="button" value="Submit" onclick="doThing();">
+
+<script>
+
+const nameInput = document.getElementById('name');
+const ingredientsInput = document.getElementById('ingredients');
+
+const doThing = () => {
+    // TODO: Do some input validation.
+    (async () => {
+        const rawResponse = await fetch('/api/addmeal', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nameInput.value,
+                ingredients: ingredientsInput.value
+            })
+        });
+        const content = await rawResponse.json();
+
+        console.log(content);
+    })()
+}
+
+
+
+</script>
+
+</body>
