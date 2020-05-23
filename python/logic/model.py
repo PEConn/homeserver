@@ -1,3 +1,10 @@
+from dataclasses import dataclass
+
+@dataclass
+class Recipe:
+    name: str
+    ingredients: str
+
 PLAN = ([
     {
         "day": "Sunday",

@@ -15,3 +15,7 @@ To run:
 source python/env/bin/activate
 python python/main.py
 ```
+
+TODO:
+
+Read the PEP about naming conventions.
